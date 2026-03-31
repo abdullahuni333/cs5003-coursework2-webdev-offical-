@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="https://jakarta.ee/xml/ns/jakartaee/beans_4_0.xsd" uri="jakarta.ee/xml/ns/jakartaee/beans_4_0.xsd"/>
+</catalog>
