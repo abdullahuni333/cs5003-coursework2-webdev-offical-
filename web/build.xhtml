@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Build PC - PC Builder</title>
+    <h:outputStylesheet name="css/style.css"/>
+</h:head>
+
+<h:body>
+
+    <div class="header">
+        <h1>PC Builder</h1>
+        <p>Create your custom PC build</p>
+    </div>
+
+    <div class="nav">
+        <h:link value="Home" outcome="/index.xhtml" />
+        <h:outputText value=" | " />
+        <h:link value="Login" outcome="/Login.xhtml" />
+        <h:outputText value=" | " />
+        <h:link value="Register" outcome="/registration.xhtml" />
+        <h:outputText value=" | " />
+        <h:link value="Build PC" outcome="/build.xhtml" />
+    </div>
+
+    <div class="content">
+        <h2>Build Your PC</h2>
+
+        <h:form>
+
+            <p>
+                <h:outputLabel for="cpu" value="CPU: " />
+                <h:selectOneMenu id="cpu" value="#{buildBean.cpu}">
+                    <f:selectItem itemLabel="Select CPU" itemValue="" />
+                    <f:selectItem itemLabel="AMD Ryzen 5 5600X - £180" itemValue="Ryzen 5 5600X" />
+                    <f:selectItem itemLabel="Intel Core i5-12400F - £170" itemValue="Core i5-12400F" />
+                    <f:ajax render="total" />
+                </h:selectOneMenu>
+            </p>
+
+            <p>
+                <h:outputLabel for="gpu" value="GPU: " />
+                <h:selectOneMenu id="gpu" value="#{buildBean.gpu}">
+                    <f:selectItem itemLabel="Select GPU" itemValue="" />
+                    <f:selectItem itemLabel="NVIDIA RTX 4060 - £290" itemValue="RTX 4060" />
+                    <f:selectItem itemLabel="AMD Radeon RX 7600 - £260" itemValue="RX 7600" />
+                    <f:ajax render="total" />
+                </h:selectOneMenu>
+            </p>
+
+            <p>
+                <h:outputLabel for="ram" value="RAM: " />
+                <h:selectOneMenu id="ram" value="#{buildBean.ram}">
+                    <f:selectItem itemLabel="Select RAM" itemValue="" />
+                    <f:selectItem itemLabel="16GB DDR4 - £45" itemValue="16GB DDR4" />
+                    <f:selectItem itemLabel="32GB DDR4 - £80" itemValue="32GB DDR4" />
+                    <f:ajax render="total" />
+                </h:selectOneMenu>
+            </p>
+
+            <h3>
+                Total Price: £
+                <h:outputText id="total" value="#{buildBean.totalPrice}" />
+            </h3>
+
+            <p>
+                <h:commandButton value="Save Build" />
+            </p>
+
+        </h:form>
+    </div>
+
+    <div class="footer">
+        <p>University Project - PC Builder Website</p>
+    </div>
+
+</h:body>
+</html>
