@@ -2,65 +2,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!-- namespaces: ui = templates, h = JSF components, f = JSF core features -->
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head>
-    <title>Registration - PC Builder</title>
-    <h:outputStylesheet name="css/style.css"/>
-</h:head>
+    <!-- this page uses Template.xhtml as its layout -->
+    <ui:composition template="./Template.xhtml">
 
-<h:body>
+        <!-- sets the page title in the template -->
+        <ui:define name="title">
+            Registration - PC Builder
+        </ui:define>
 
-    <div class="header">
-        <h1>PC Builder</h1>
-        <p>Create an account to save your PC builds</p>
-    </div>
+        <!-- everything inside here is inserted into the template's content section -->
+        <ui:define name="content">
+            <h2>Create Account</h2>
 
-    <div class="nav">
-        <h:link value="Home" outcome="/index.xhtml" />
-        <h:outputText value=" | " />
-        <h:link value="Login" outcome="/Login.xhtml" />
-        <h:outputText value=" | " />
-        <h:link value="Register" outcome="/registration.xhtml" />
-    </div>
+            <!-- JSF form used to send data to the backend bean -->
+            <h:form>
 
-    <div class="content">
-        <h2>Create Account</h2>
+                <!-- name input -->
+                <p>
+                    <h:outputLabel for="name" value="Full Name: " />
+                    <!-- links to registrationBean.name -->
+                    <h:inputText id="name" value="#{registrationBean.name}" required="true"
+                                 requiredMessage="Name is required" />
+                </p>
 
-        <h:form>
-            <p>
-                <h:outputLabel for="name" value="Full Name: " />
-                <h:inputText id="name" value="#{registrationBean.name}" required="true"
-                             requiredMessage="Name is required" />
-            </p>
+                <!-- email input -->
+                <p>
+                    <h:outputLabel for="email" value="Email: " />
+                    <!-- links to registrationBean.email -->
+                    <h:inputText id="email" value="#{registrationBean.email}" required="true"
+                                 requiredMessage="Email is required" />
+                </p>
 
-            <p>
-                <h:outputLabel for="email" value="Email: " />
-                <h:inputText id="email" value="#{registrationBean.email}" required="true"
-                             requiredMessage="Email is required" />
-            </p>
+                <!-- password input (hidden text) -->
+                <p>
+                    <h:outputLabel for="password" value="Password: " />
+                    <h:inputSecret id="password" value="#{registrationBean.password}" required="true"
+                                   requiredMessage="Password is required" />
+                </p>
 
-            <p>
-                <h:outputLabel for="password" value="Password: " />
-                <h:inputSecret id="password" value="#{registrationBean.password}" required="true"
-                               requiredMessage="Password is required" />
-            </p>
+                <!-- button calls the register() method in the bean -->
+                <p>
+                    <h:commandButton value="Create Account" action="#{registrationBean.register}" />
+                </p>
 
-            <p>
-                <h:commandButton value="Create Account" action="#{registrationBean.register}" />
-            </p>
+                <!-- shows validation errors/messages -->
+                <p>
+                    <h:messages style="color:red;" />
+                </p>
 
-            <p>
-                <h:messages style="color:red;" />
-            </p>
-        </h:form>
-    </div>
+            </h:form>
+        </ui:define>
 
-    <div class="footer">
-        <p>University Project - PC Builder Website</p>
-    </div>
+    </ui:composition>
 
-</h:body>
 </html>

@@ -3,63 +3,49 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head>
-    <title>Login - PC Builder</title>
-    <h:outputStylesheet name="css/style.css"/>
-</h:head>
+    <ui:composition template="./Template.xhtml">
 
-<h:body>
+        <ui:define name="title">
+            Login - PC Builder
+        </ui:define>
 
-    <div class="header">
-        <h1>PC Builder</h1>
-        <p>Login to save your PC builds</p>
-    </div>
+        <ui:define name="content">
 
-    <div class="nav">
-        <h:link value="Home" outcome="/index.xhtml" />
-        <h:outputText value=" | " />
-        <h:link value="Login" outcome="/Login.xhtml" />
-        <h:outputText value=" | " />
-        <h:link value="Build PC" outcome="/build.xhtml" />
-    </div>
+            <h2>Login</h2>
 
-    <div class="content">
-        <h2>Login</h2>
+            <h:form>
+                <p>
+                    <h:outputLabel for="email" value="Email: " />
+                    <h:inputText id="email" value="#{loginBean.email}" required="true"
+                                 requiredMessage="Email is required" />
+                </p>
 
-        <h:form>
-            <p>
-                <h:outputLabel for="email" value="Email: " />
-                <h:inputText id="email" value="#{loginBean.email}" required="true"
-                             requiredMessage="Email is required" />
-            </p>
+                <p>
+                    <h:outputLabel for="password" value="Password: " />
+                    <h:inputSecret id="password" value="#{loginBean.password}" required="true"
+                                   requiredMessage="Password is required" />
+                </p>
 
-            <p>
-                <h:outputLabel for="password" value="Password: " />
-                <h:inputSecret id="password" value="#{loginBean.password}" required="true"
-                               requiredMessage="Password is required" />
-            </p>
+                <p>
+                    <h:commandButton value="Login" action="#{loginBean.login}" />
+                </p>
 
-            <p>
-                <h:commandButton value="Login" action="#{loginBean.login}" />
-            </p>
+                <p>
+                    <h:link value="Don't have an account? Register here"
+                            outcome="/registration.xhtml" />
+                </p>
 
-            <p>
-                <h:link value="Don't have an account? Register here"
-                        outcome="/registration.xhtml" />
-            </p>
+                <p>
+                    <h:messages style="color:red;" />
+                </p>
+            </h:form>
 
-            <p>
-                <h:messages style="color:red;" />
-            </p>
-        </h:form>
-    </div>
+        </ui:define>
 
-    <div class="footer">
-        <p>University Project - PC Builder Website</p>
-    </div>
+    </ui:composition>
 
-</h:body>
 </html>
