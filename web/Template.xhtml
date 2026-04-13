@@ -7,36 +7,36 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title><ui:insert name="title">PC Builder</ui:insert></title>
-        <h:outputStylesheet name="css/style.css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> <!-- sets character encoding -->
+        <title><ui:insert name="title">PC Builder</ui:insert></title> <!-- inserts page title from other pages -->
+        <h:outputStylesheet name="css/style.css"/> <!-- links external css file -->
     </h:head>
 
     <h:body>
 
         <div class="header">
-            <h1>PC Builder</h1>
-            <p>Create your custom PC build</p>
+            <h1>PC Builder</h1> <!-- main website header -->
+            <p>Create your custom PC build</p> <!-- description -->
         </div>
 
         <div class="nav">
-            <h:link value="Home" outcome="/index.xhtml" />
+            <h:link value="Home" outcome="/index.xhtml" /> <!-- link to home page -->
             <h:outputText value=" | " />
-            <h:link value="Login" outcome="/Login.xhtml" />
+            <h:link value="Login" outcome="/Login.xhtml" /> <!-- link to login page -->
             <h:outputText value=" | " />
-            <h:link value="Register" outcome="/registration.xhtml" />
+            <h:link value="Register" outcome="/registration.xhtml" /> <!-- link to registration page -->
             <h:outputText value=" | " />
-            <h:link value="Build PC" outcome="/build.xhtml" />
+            <h:link value="Build PC" outcome="/build.xhtml" /> <!-- link to build pc page -->
             <h:outputText value=" | " />
-            <h:link value="Saved Builds" outcome="/Savedbuilds.xhtml" />
+            <h:link value="Saved Builds" outcome="/Savedbuilds.xhtml" /> <!-- link to saved builds page -->
         </div>
 
         <div class="content">
-            <ui:insert name="content">Page content goes here...</ui:insert>
+            <ui:insert name="content" /> <!-- inserts page specific content -->
         </div>
 
         <div class="footer">
-            <p>University Project - PC Builder Website</p>
+            <p>University Project - PC Builder Website</p> <!-- footer -->
         </div>
 
     </h:body>

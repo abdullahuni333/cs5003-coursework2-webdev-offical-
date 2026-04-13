@@ -20,27 +20,27 @@
             <h:form>
                 <p>
                     <h:outputLabel for="email" value="Email: " />
-                    <h:inputText id="email" value="#{loginBean.email}" required="true"
-                                 requiredMessage="Email is required" />
+                    <h:inputText id="email" value="#{loginBean.email}" required="true" <!-- field cannot be left empty -->
+                                 requiredMessage="Email is required" /> <!-- input box for email if empty -->
                 </p>
 
                 <p>
                     <h:outputLabel for="password" value="Password: " />
-                    <h:inputSecret id="password" value="#{loginBean.password}" required="true"
-                                   requiredMessage="Password is required" />
+                    <h:inputSecret id="password" value="#{loginBean.password}" required="true" <!-- field cannot be left empty -->
+                                   requiredMessage="Password is required" /> <!-- no password input if missing -->
                 </p>
 
                 <p>
-                    <h:commandButton value="Login" action="#{loginBean.login}" />
+                    <h:commandButton value="Login" action="#{loginBean.login}" /> <!-- calls loginBean to check user details -->
                 </p>
 
                 <p>
                     <h:link value="Don't have an account? Register here"
-                            outcome="/registration.xhtml" />
+                            outcome="/registration.xhtml" /> <!-- link to registration page -->
                 </p>
 
                 <p>
-                    <h:messages style="color:red;" />
+                    <h:messages style="color:red;" /> <!-- displays validation or login error messages in red -->
                 </p>
             </h:form>
 

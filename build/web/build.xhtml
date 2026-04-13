@@ -21,36 +21,36 @@
                 <p>
                     <h:outputLabel for="cpu" value="CPU: " />
                     <h:selectOneMenu id="cpu" value="#{buildBean.cpu}">
-                        <f:selectItem itemLabel="Select CPU" itemValue="" />
+                        <f:selectItem itemLabel="Select CPU" itemValue="" /> <!-- default no selection option -->
                         <f:selectItem itemLabel="AMD Ryzen 5 5600X - £180" itemValue="Ryzen 5 5600X" />
                         <f:selectItem itemLabel="Intel Core i5-12400F - £170" itemValue="Core i5-12400F" />
-                        <f:ajax render="total" />
+                        <f:ajax render="total" /> <!-- call for ajax to reload total without refresh-->
                     </h:selectOneMenu>
                 </p>
 
                 <p>
                     <h:outputLabel for="gpu" value="GPU: " />
-                    <h:selectOneMenu id="gpu" value="#{buildBean.gpu}">
-                        <f:selectItem itemLabel="Select GPU" itemValue="" />
+                    <h:selectOneMenu id="gpu" value="#{buildBean.gpu}"> <!-- dropdown for gpu selection -->
+                        <f:selectItem itemLabel="Select GPU" itemValue="" /> <!-- default no selection option -->
                         <f:selectItem itemLabel="NVIDIA RTX 4060 - £290" itemValue="RTX 4060" />
                         <f:selectItem itemLabel="AMD Radeon RX 7600 - £260" itemValue="RX 7600" />
-                        <f:ajax render="total" />
+                        <f:ajax render="total" /> <!-- call for ajax -->
                     </h:selectOneMenu>
                 </p>
 
                 <p>
-                    <h:outputLabel for="ram" value="RAM: " />
-                    <h:selectOneMenu id="ram" value="#{buildBean.ram}">
-                        <f:selectItem itemLabel="Select RAM" itemValue="" />
+                    <h:outputLabel for="ram" value="RAM: " />  
+                    <h:selectOneMenu id="ram" value="#{buildBean.ram}"> <!-- dropdown for ram selection -->
+                        <f:selectItem itemLabel="Select RAM" itemValue="" /> <!-- default no selection option -->
                         <f:selectItem itemLabel="16GB DDR4 - £45" itemValue="16GB DDR4" />
                         <f:selectItem itemLabel="32GB DDR4 - £80" itemValue="32GB DDR4" />
-                        <f:ajax render="total" />
+                        <f:ajax render="total" />  <!-- call for ajax -->
                     </h:selectOneMenu>
                 </p>
 
                 <h3>
                     Total Price: £
-                    <h:outputText id="total" value="#{buildBean.totalPrice}" />
+                    <h:outputText id="total" value="#{buildBean.totalPrice}" />  <!-- displays the total price from buildBean  -->
                 </h3>
 
                 <p>
