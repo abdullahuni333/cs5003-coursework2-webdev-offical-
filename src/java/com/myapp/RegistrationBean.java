@@ -123,7 +123,7 @@ public class RegistrationBean implements Serializable {
     }
     Connection connection = dataSource.getConnection();
    try{
-       PreparedStatement generateID = connection.prepareStatement("SELECT USERID FROM USERS FETCH FIRST 1 ROWS ONLY");
+       PreparedStatement generateID = connection.prepareStatement("SELECT USERID FROM  USERS ORDER BY USERID DESC  FETCH FIRST 1 ROWS ONLY");
         java.sql.ResultSet count = generateID.executeQuery();
         if(count.next()){
         currentCount = count.getInt("USERID");
