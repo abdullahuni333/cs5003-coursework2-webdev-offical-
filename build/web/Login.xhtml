@@ -20,13 +20,13 @@
             <h:form>
                 <p>
                     <h:outputLabel for="email" value="Email: " />
-                    <h:inputText id="email" value="#{loginBean.email}" required="true" <!-- field cannot be left empty -->
-                                 requiredMessage="Email is required" /> <!-- input box for email if empty -->
+                    <h:inputText id="email" value="#{loginBean.email}" required="true"
+                                 requiredMessage="Email is required" /> <!-- email field cannot be left empty/input box for email if empty -->
                 </p>
 
                 <p>
                     <h:outputLabel for="password" value="Password: " />
-                    <h:inputSecret id="password" value="#{loginBean.password}" required="true" <!-- field cannot be left empty -->
+                    <h:inputSecret id="password" value="#{loginBean.password}" required="true" 
                                    requiredMessage="Password is required" /> <!-- no password input if missing -->
                 </p>
 

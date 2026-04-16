@@ -6,6 +6,13 @@ import jakarta.inject.Named;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 
+// stuff for databases
+import jakarta.annotation.Resource;
+import jakarta.annotation.sql.DataSourceDefinition;
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
+
 @Named("loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
