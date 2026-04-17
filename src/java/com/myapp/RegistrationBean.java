@@ -90,30 +90,7 @@ public class RegistrationBean implements Serializable {
         this.password = password;
     }
     
-    public ResultSet getDetails() throws SQLException{
 
-     if (dataSource == null)
-    {
-       throw new SQLException("no datasource");
-    }
-    Connection connection = dataSource.getConnection();
-    //check connection
-    if(connection == null)
-     throw new SQLException("cant connect to datasource");
-    try 
-    {
-        
-        PreparedStatement getDetails = connection.prepareStatement("select username from users");   
-        CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
-         rowSet.populate( getDetails.executeQuery() );
-        return (ResultSet) rowSet; 
-            
-        }
-    finally{
-    connection.close();
-    }
-    }
-    
     
    public String generateID() throws SQLException{
        int currentCount =0;

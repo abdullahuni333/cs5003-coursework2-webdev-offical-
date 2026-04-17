@@ -9,13 +9,31 @@ import jakarta.faces.context.FacesContext;
 // stuff for databases
 import jakarta.annotation.Resource;
 import jakarta.annotation.sql.DataSourceDefinition;
+import jakarta.resource.cci.ResultSet;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
+
+
+
+@DataSourceDefinition(
+        name = "jdbc:derby://localhost:1527/ComputerWebsiteDB",
+        className= "org.apache.derby.jdbc.ClientDataSource",
+        url = "jdbc:derby://localhost:1527/ComputerWebsiteDB",
+        databaseName = "ComputerWebsiteDB",
+        user = "APP",
+        password = "APP")
 
 
 @Named("loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
+    
+    @Resource(lookup="jdbc/ComputerWebsiteDB")
+    DataSource dataSource;
 
     private String email;
     private String password;
@@ -61,4 +79,34 @@ public class LoginBean implements Serializable {
     public boolean isLoggedIn() {
         return loggedIn;
     }
+    
+      
+    
+    
+    public ResultSet getDetails() throws SQLException{
+
+     if (dataSource == null)
+    {
+       throw new SQLException("no datasource");
+    }
+    Connection connection = dataSource.getConnection();
+    //check connection
+    if(connection == null)
+     throw new SQLException("cant connect to datasource");
+    try 
+    {
+        
+        PreparedStatement getDetails = connection.prepareStatement("SELECT USERNAME, PASSWORD, EMAIL FROM USERS");   
+        CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
+         rowSet.populate( getDetails.executeQuery() );
+        return (ResultSet) rowSet; 
+            
+        }
+    finally{
+    connection.close();
+    }
+    }
+    
+    
+    
 }
