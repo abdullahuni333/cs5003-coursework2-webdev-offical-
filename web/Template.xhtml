@@ -22,10 +22,19 @@
         <div class="nav">
             <h:link value="Home" outcome="/index.xhtml" /> <!-- link to home page -->
             <h:outputText value=" | " />
-            <h:link value="Login" outcome="/Login.xhtml" /> <!-- link to login page -->
-            <h:outputText value=" | " />
-            <h:link value="Register" outcome="/registration.xhtml" /> <!-- link to registration page -->
-            <h:outputText value=" | " />
+
+            <h:panelGroup rendered="#{!loginBean.loggedIn}"> <!-- only show when user is not logged in -->
+                <h:link value="Login" outcome="/Login.xhtml" /> <!-- link to login page -->
+                <h:outputText value=" | " />
+                <h:link value="Register" outcome="/registration.xhtml" /> <!-- link to registration page -->
+                <h:outputText value=" | " />
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{loginBean.loggedIn}"> <!-- only show when user is logged in -->
+                <h:outputText value="Welcome, #{loginBean.username}" styleClass="navUser" /> <!-- shows logged in username -->
+                <h:outputText value=" | " />
+            </h:panelGroup>
+
             <h:link value="Build PC" outcome="/build.xhtml" /> <!-- link to build pc page -->
             <h:outputText value=" | " />
             <h:link value="Saved Builds" outcome="/Savedbuilds.xhtml" /> <!-- link to saved builds page -->

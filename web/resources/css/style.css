@@ -58,3 +58,24 @@ body {
     border-radius: 5px;
     font-weight: bold;
 }
+
+.navUser {
+    color: white;
+    font-weight: bold;
+}
+
+.accountActions {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.deleteButton {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-left: 10px;
+    cursor: pointer;
+}
