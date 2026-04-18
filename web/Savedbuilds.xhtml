@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="./Template.xhtml">
 
@@ -13,7 +14,85 @@
         </ui:define>
 
         <ui:define name="content">
-            <h2>Browse your builds</h2>
+            <h2>Browse your builds</h2> <!-- heading for saved builds page -->
+
+            <!-- form wraps the table buttons -->
+            <h:form rendered="#{loginBean.loggedIn}">
+
+                <!-- table shows saved builds for logged in user -->
+                <h:dataTable value="#{buildBean.savedBuilds}" var="build" border="1">
+
+                    <h:column>
+                        <f:facet name="header">Build ID</f:facet>
+                        #{build.buildId} <!-- shows build id -->
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">CPU</f:facet>
+
+                        <h:outputText value="#{build.cpu}" rendered="#{!build.editing}" /> <!-- shows saved cpu -->
+
+                        <h:selectOneMenu value="#{build.cpu}" rendered="#{build.editing}"> <!-- edit cpu -->
+                            <f:selectItem itemLabel="AMD Ryzen 5 5600X" itemValue="Ryzen 5 5600X" />
+                            <f:selectItem itemLabel="Intel Core i5-12400F" itemValue="Core i5-12400F" />
+                        </h:selectOneMenu>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">GPU</f:facet>
+
+                        <h:outputText value="#{build.gpu}" rendered="#{!build.editing}" /> <!-- shows saved gpu -->
+
+                        <h:selectOneMenu value="#{build.gpu}" rendered="#{build.editing}"> <!-- edit gpu -->
+                            <f:selectItem itemLabel="NVIDIA RTX 4060" itemValue="RTX 4060" />
+                            <f:selectItem itemLabel="AMD Radeon RX 7600" itemValue="RX 7600" />
+                        </h:selectOneMenu>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">RAM</f:facet>
+
+                        <h:outputText value="#{build.ram}" rendered="#{!build.editing}" /> <!-- shows saved ram -->
+
+                        <h:selectOneMenu value="#{build.ram}" rendered="#{build.editing}"> <!-- edit ram -->
+                            <f:selectItem itemLabel="16GB DDR4" itemValue="16GB DDR4" />
+                            <f:selectItem itemLabel="32GB DDR4" itemValue="32GB DDR4" />
+                        </h:selectOneMenu>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Total Price</f:facet>
+                        £#{build.totalPrice} <!-- shows total build price -->
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Actions</f:facet>
+
+                        <h:commandButton value="Edit"
+                                         action="#{buildBean.editBuild(build)}"
+                                         rendered="#{!build.editing}" /> <!-- turns row into edit mode -->
+
+                        <h:commandButton value="Update"
+                                         action="#{buildBean.updateBuild(build)}"
+                                         rendered="#{build.editing}" /> <!-- updates selected build -->
+
+                        <h:commandButton value="Cancel"
+                                         action="#{buildBean.cancelEdit}"
+                                         rendered="#{build.editing}" /> <!-- cancels edit -->
+                    </h:column>
+
+                </h:dataTable>
+
+                <p>
+                    <h:messages style="color:red;" /> <!-- shows update messages -->
+                </p>
+
+            </h:form>
+
+            <!-- message shown when user is not logged in -->
+            <h:outputText value="Please log in to view saved builds."
+                          rendered="#{!loginBean.loggedIn}" />
+
         </ui:define>
 
     </ui:composition>
