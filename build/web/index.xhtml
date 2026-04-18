@@ -13,6 +13,25 @@
         </ui:define>
 
         <ui:define name="content">
+
+            <!-- account buttons (top right when logged in) -->
+            <h:panelGroup rendered="#{loginBean.loggedIn}" layout="block" styleClass="accountActions">
+
+                <h:form style="display:inline;"> <!-- form needed for logout button -->
+                    <h:commandButton value="Logout"
+                                     action="#{loginBean.logout}"
+                                     styleClass="buttonLink" /> <!-- logs user out -->
+                </h:form>
+
+                <h:form style="display:inline;"> <!-- form needed for delete account button -->
+                    <h:commandButton value="Delete Account"
+                                     action="#{loginBean.deleteAccount}"
+                                     onclick="return confirm('Are you sure you want to delete your account?');"
+                                     styleClass="deleteButton" /> <!-- deletes current logged in account -->
+                </h:form>
+
+            </h:panelGroup>
+
             <h2>Welcome to PC Builder</h2> <!-- main heading for homepage -->
 
             <p>
@@ -31,6 +50,7 @@
             <h:link value="Start Building Your PC"
                     outcome="/build.xhtml"
                     styleClass="buttonLink" /> <!-- link to build pc page -->
+
         </ui:define>
 
     </ui:composition>

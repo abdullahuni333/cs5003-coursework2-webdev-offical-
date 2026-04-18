@@ -39,22 +39,22 @@
                 </p>
 
                 <p>
-                    <h:outputLabel for="ram" value="RAM: " />  
+                    <h:outputLabel for="ram" value="RAM: " />
                     <h:selectOneMenu id="ram" value="#{buildBean.ram}"> <!-- dropdown for ram selection -->
                         <f:selectItem itemLabel="Select RAM" itemValue="" /> <!-- default no selection option -->
                         <f:selectItem itemLabel="16GB DDR4 - £45" itemValue="16GB DDR4" />
                         <f:selectItem itemLabel="32GB DDR4 - £80" itemValue="32GB DDR4" />
-                        <f:ajax render="total" />  <!-- call for ajax -->
+                        <f:ajax render="total" /> <!-- call for ajax -->
                     </h:selectOneMenu>
                 </p>
 
                 <h3>
                     Total Price: £
-                    <h:outputText id="total" value="#{buildBean.totalPrice}" />  <!-- displays the total price from buildBean  -->
+                    <h:outputText id="total" value="#{buildBean.totalPrice}" /> <!-- displays the total price from buildBean -->
                 </h3>
 
                 <p>
-                    <h:commandButton value="Save Build" />
+                    <h:commandButton value="Save Build" action="#{buildBean.saveBuild}" /> <!-- calls saveBuild in buildBean -->
                 </p>
 
             </h:form>
