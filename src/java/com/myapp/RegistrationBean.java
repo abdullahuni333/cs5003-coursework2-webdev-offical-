@@ -23,14 +23,26 @@ import java.sql.PreparedStatement;
 @Named("registrationBean")
 @SessionScoped 
 public class RegistrationBean implements Serializable {
-
+    private String ID;
     private String name;
     private String email;
     private String password;
+    private String country;
+    private String city;
+    private String street;
 
     @Resource(lookup = "jdbc/ComputerWebsiteDB")
     DataSource dataSource;
 
+        public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID; // sets username from registration form
+    }
+    
+    
     public String getName() {
         return name;
     }
@@ -45,6 +57,28 @@ public class RegistrationBean implements Serializable {
 
     public void setEmail(String email) {
         this.email = email; // sets email from registration form
+    }
+   public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country; // sets country
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city; // sets city
+    }
+    
+        public String getStreet() {
+        return street;
+    }
+    public void setStreet(String street) {
+        this.street = street; // sets street
     }
 
     public String getPassword() {
@@ -76,6 +110,7 @@ public class RegistrationBean implements Serializable {
             }
 
             String newCount = String.valueOf(currentCount + 1); // adds 1 for next id
+            setID(newCount);
             return newCount;
 
         } finally {
@@ -97,20 +132,29 @@ public class RegistrationBean implements Serializable {
 
         try {
             // insert new user into USERS table
-            PreparedStatement addEntry = connection.prepareStatement(
+            PreparedStatement addUser = connection.prepareStatement(
                     "INSERT INTO USERS (USERID,USERNAME,PASSWORD,EMAIL) values (?,?,?,?)");
 
-            addEntry.setString(1, generateID()); // generates a new USERID
-            addEntry.setString(2, getName()); // stores user name
-            addEntry.setString(3, getPassword()); // stores password in PASSWORD column
-            addEntry.setString(4, getEmail()); // stores email in EMAIL column
+            addUser.setString(1, generateID()); // generates a new USERID
+            addUser.setString(2, getName()); // stores user name
+            addUser.setString(3, getPassword()); // stores password in PASSWORD column
+            addUser.setString(4, getEmail()); // stores email in EMAIL column
 
-            addEntry.executeUpdate(); // executes insert query
+            addUser.executeUpdate(); // executes insert query
 
+            PreparedStatement registerAddress =  connection.prepareStatement("INSERT INTO ADDRESSES (ADDRESSKEY,FKUSERID,COUNTRY,CITY,STREET) values (?,?,?,?,?)");
+            registerAddress.setString(1,getID());
+            registerAddress.setString(2,getID());
+            registerAddress.setString(3,getCountry());
+            registerAddress.setString(4,getCity());
+            registerAddress.setString(5,getStreet());
+            
+            registerAddress.executeUpdate();
             // clear values after registration (session scoped bean)
             name = null;
             email = null;
             password = null;
+            ID = null;
 
             return "index"; // return to home page
 

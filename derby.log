@@ -1,7 +1,7 @@
-Fri Apr 17 18:11:43 BST 2026 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+Mon Apr 20 09:36:54 BST 2026 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Fri Apr 17 18:11:43 BST 2026:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-019d-9c6d-5162-0000327949d3 
+Mon Apr 20 09:36:54 BST 2026:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-019d-aa09-11ab-0000327949d3 
 on database directory C:\Users\agant\Documents\java\netbeans\cs5003 coursework2\cs5003-coursework2-webdev\ComputerWebsiteDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
 Loaded from file:/C:/Users/agant/Downloads/db-derby-10.14.2.0-bin/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -12,3 +12,9 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=C:\Users\agant\Documents\java\netbeans\cs5003 coursework2\cs5003-coursework2-webdev
 Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Apr 20 10:05:57 BST 2026: Shutting down Derby engine
+----------------------------------------------------------------
+Mon Apr 20 10:05:57 BST 2026:
+Shutting down instance a816c00e-019d-aa09-11ab-0000327949d3 on database directory C:\Users\agant\Documents\java\netbeans\cs5003 coursework2\cs5003-coursework2-webdev\ComputerWebsiteDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93 
+----------------------------------------------------------------

@@ -8,22 +8,14 @@ import jakarta.faces.context.FacesContext;
 
 // stuff for databases
 import jakarta.annotation.Resource;
-import jakarta.annotation.sql.DataSourceDefinition;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@DataSourceDefinition(
-        name = "jdbc:derby://localhost:1527/ComputerWebsiteDB",
-        className = "org.apache.derby.jdbc.ClientDataSource",
-        url = "jdbc:derby://localhost:1527/ComputerWebsiteDB",
-        databaseName = "ComputerWebsiteDB",
-        user = "APP",
-        password = "APP")
-
-@Named("loginBean") 
+@Named("loginBean")
 @SessionScoped // keeps user logged in across pages
+
 public class LoginBean implements Serializable {
 
     private static final long serialVersionUID = 1L; // required for session scoped bean
@@ -32,6 +24,7 @@ public class LoginBean implements Serializable {
     private String email;
     private String password;
     private String username;
+    private int userId;
     private boolean loggedIn = false;
 
     // allow the server to inject the DataSource
@@ -54,7 +47,7 @@ public class LoginBean implements Serializable {
         try {
             // create PreparedStatement to find matching user
             PreparedStatement checkUser = connection.prepareStatement(
-                    "SELECT USERNAME FROM APP.USERS "
+                    "SELECT USERID, USERNAME FROM APP.USERS "
                     + "WHERE CAST(EMAIL AS VARCHAR(100)) = ? "
                     + "AND CAST(PASSWORD AS VARCHAR(100)) = ?");
 
@@ -64,6 +57,7 @@ public class LoginBean implements Serializable {
             java.sql.ResultSet results = checkUser.executeQuery(); // call checkUser query
 
             if (results.next()) {
+                userId = results.getInt("USERID");
                 username = results.getString("USERNAME"); // get username from database
                 loggedIn = true; // update login status
 
@@ -86,13 +80,18 @@ public class LoginBean implements Serializable {
         }
     }
 
-    // logout user and clear session values
+// logout user and clear session values
     public String logout() {
+
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); // clear session values so saved builds does not linger when loggin out and logging into another account
+
         email = null; // clear stored email
         password = null; // clear stored password
         username = null; // clear stored username
+        userId = 0;
         loggedIn = false; // reset login status
-        return "/index.xhtml?faces-redirect=true"; // go back to home page
+
+        return "/index.xhtml?faces-redirect=true"; // go back to home page  
     }
 
     public String getEmail() {
@@ -133,11 +132,14 @@ public class LoginBean implements Serializable {
         }
 
         try {
-            // create PreparedStatement to delete user by email
-            PreparedStatement deleteUser = connection.prepareStatement(
-                    "DELETE FROM APP.USERS WHERE CAST(EMAIL AS VARCHAR(100)) = ?");
+            PreparedStatement deleteAddress = connection.prepareStatement(
+                    "DELETE FROM APP.ADDRESSES WHERE FKUSERID = ?");
+            deleteAddress.setInt(1, userId);
+            deleteAddress.executeUpdate();
 
-            deleteUser.setString(1, getEmail()); // delete currently logged in user
+            PreparedStatement deleteUser = connection.prepareStatement(
+                    "DELETE FROM APP.USERS WHERE USERID = ?");
+            deleteUser.setInt(1, userId);
 
             int result = deleteUser.executeUpdate(); // call deleteUser
 
@@ -150,6 +152,7 @@ public class LoginBean implements Serializable {
                 email = null;
                 password = null;
                 username = null;
+                userId = 0;
                 loggedIn = false;
 
                 return "/index.xhtml?faces-redirect=true"; // return to home page

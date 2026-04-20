@@ -17,39 +17,59 @@
             <!-- account buttons (top right when logged in) -->
             <h:panelGroup rendered="#{loginBean.loggedIn}" layout="block" styleClass="accountActions">
 
-                <h:form style="display:inline;"> <!-- form needed for logout button -->
+                <h:form style="display:inline;">
                     <h:commandButton value="Logout"
                                      action="#{loginBean.logout}"
-                                     styleClass="buttonLink" /> <!-- logs user out -->
+                                     styleClass="buttonLink" />
                 </h:form>
 
-                <h:form style="display:inline;"> <!-- form needed for delete account button -->
+                <h:form style="display:inline;">
                     <h:commandButton value="Delete Account"
                                      action="#{loginBean.deleteAccount}"
                                      onclick="return confirm('Are you sure you want to delete your account?');"
-                                     styleClass="deleteButton" /> <!-- deletes current logged in account -->
+                                     styleClass="deleteButton" />
                 </h:form>
 
             </h:panelGroup>
 
-            <h2>Welcome to PC Builder</h2> <!-- main heading for homepage -->
+            <!-- panel grid  -->
+            <h:panelGrid columns="2" style="width:100%;" >
 
-            <p>
-                This website helps users choose computer parts and check total costs. <!-- short description of website  -->
-            </p>
+                <!-- left side text -->
+                <h:panelGroup>
 
-            <h3>Purpose:</h3> <!-- heading 2 -->
-            <ul>
-                <li>Browse computer parts</li> 
-                <li>Create and save a custom PC build</li> 
-                <li>View your build summary</li> 
-            </ul>
+                    <h2>Welcome to PC Builder!</h2>
 
-            <br/>
+                    <p>
+                        This website helps aims to users choose computer parts and check total costs.
+                    </p>
 
-            <h:link value="Start Building Your PC"
-                    outcome="/build.xhtml"
-                    styleClass="buttonLink" /> <!-- link to build pc page -->
+                    <p>
+                        Whether your Budget is big or small, PC Builder can help find the ideal build for you!
+                    </p>
+
+                    <h3>Purpose:</h3>
+                    <ul>
+                        <li>Browse computer parts</li> 
+                        <li>Create and save a custom PC build</li> 
+                        <li>View your build summary</li> 
+                    </ul>
+
+                    <br/>
+
+                    <h:link value="Start Building Your PC"
+                            outcome="/build.xhtml"
+                            styleClass="buttonLink" />
+
+                </h:panelGroup>
+
+                <!-- PC image on right of grid -->
+                <h:panelGroup>
+                    <h:graphicImage name="PCPic.png" library="images"
+                                    style="width:350px;" />
+                </h:panelGroup>
+
+            </h:panelGrid>
 
         </ui:define>
 

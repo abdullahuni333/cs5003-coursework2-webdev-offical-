@@ -52,9 +52,8 @@ body {
 .buttonLink {
     display: inline-block;
     background-color: #007bff;
-    color: white !important;
+    color: white;
     padding: 10px 15px;
-    text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
 }
@@ -76,6 +75,4 @@ body {
     padding: 10px 15px;
     border-radius: 5px;
     font-weight: bold;
-    margin-left: 10px;
-    cursor: pointer;
 }
