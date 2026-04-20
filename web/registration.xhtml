@@ -38,6 +38,27 @@
                     <h:inputText id="email" value="#{registrationBean.email}" required="true"
                                  requiredMessage="Email is required" />
                 </p>
+                <!-- country input -->
+                <p>
+                    <h:outputLabel for="country" value="country: " />
+                    <!-- links to registrationBean.country -->
+                    <h:inputText id="country" value="#{registrationBean.country}" required="true"
+                                 requiredMessage="country is required" />
+                </p>
+                <!-- city input -->
+                <p>
+                    <h:outputLabel for="city" value="city: " />
+                    <!-- links to registrationBean.city -->
+                    <h:inputText id="city" value="#{registrationBean.city}" required="true"
+                                 requiredMessage="city is required" />
+                </p>
+                <!-- street input -->
+                <p>
+                    <h:outputLabel for="street" value="street: " />
+                    <!-- links to registrationBean.street -->
+                    <h:inputText id="street" value="#{registrationBean.street}" required="true"
+                                 requiredMessage="street is required" />
+                </p>
 
                 <!-- password input (hidden text) -->
                 <p>

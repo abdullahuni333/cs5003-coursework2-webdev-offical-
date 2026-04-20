@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/owenb/Downloads/cs5003-coursework2-webdev-offical--main/cs5003-coursework2-webdev-offical--main/web/Login.xhtml</file>
-            <file>file:/C:/Users/owenb/Downloads/cs5003-coursework2-webdev-offical--main/cs5003-coursework2-webdev-offical--main/src/java/com/myapp/LoginBean.java</file>
-            <file>file:/C:/Users/owenb/Downloads/cs5003-coursework2-webdev-offical--main/cs5003-coursework2-webdev-offical--main/web/resources/css/style.css</file>
-            <file>file:/C:/Users/owenb/Downloads/cs5003-coursework2-webdev-offical--main/cs5003-coursework2-webdev-offical--main/web/Template.xhtml</file>
-            <file>file:/C:/Users/owenb/Downloads/cs5003-coursework2-webdev-offical--main/cs5003-coursework2-webdev-offical--main/web/index.xhtml</file>
-            <file>file:/C:/Users/owenb/Downloads/cs5003-coursework2-webdev-offical--main/cs5003-coursework2-webdev-offical--main/src/java/com/myapp/BuildBean.java</file>
-            <file>file:/C:/Users/owenb/Downloads/cs5003-coursework2-webdev-offical--main/cs5003-coursework2-webdev-offical--main/web/Savedbuilds.xhtml</file>
-            <file>file:/C:/Users/owenb/Downloads/cs5003-coursework2-webdev-offical--main/cs5003-coursework2-webdev-offical--main/web/build.xhtml</file>
+            <file>file:/C:/Users/agant/Documents/java/netbeans/cs5003-coursework2-webdev-officalRECOVERED/src/java/com/myapp/BuildBean.java</file>
+            <file>file:/C:/Users/agant/Documents/java/netbeans/cs5003-coursework2-webdev-officalRECOVERED/src/java/com/myapp/LoginBean.java</file>
+            <file>file:/C:/Users/agant/Documents/java/netbeans/cs5003-coursework2-webdev-officalRECOVERED/src/java/com/myapp/RegistrationBean.java</file>
+            <file>file:/C:/Users/agant/Documents/java/netbeans/cs5003-coursework2-webdev-officalRECOVERED/web/registration.xhtml</file>
+            <file>file:/C:/Users/agant/Documents/java/netbeans/cs5003-coursework2-webdev-officalRECOVERED/web/Savedbuilds.xhtml</file>
         </group>
     </open-files>
 </project-private>

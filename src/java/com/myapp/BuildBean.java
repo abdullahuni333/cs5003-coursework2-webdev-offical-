@@ -24,6 +24,9 @@ public class BuildBean implements Serializable {
     private String cpu;
     private String gpu;
     private String ram;
+    private int cpuStock;
+    private int gpuStock;
+    private int ramStock;
 
     private List<SavedBuild> savedBuilds; // stores saved builds for current user
 
@@ -255,6 +258,212 @@ public class BuildBean implements Serializable {
         return null; // stay on same page
     }
 
+    
+    
+    
+        public String findStock(SavedBuild build) throws SQLException {
+
+
+        if (dataSource == null) {
+            throw new SQLException("no datasource"); // check datasource exists
+        }
+
+        Connection connection = dataSource.getConnection();
+
+        try {
+            
+            PreparedStatement findStock = connection.prepareStatement(
+                    "SELECT PRODUCTNAME, QAUNTITY FROM PRODUCT WHERE PRODUCTNAME IN(?,?,?)"
+                    , java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY);
+
+                    System.out.println(build.getCpu());
+                    System.out.println(build.getGpu());
+                    System.out.println(build.getRam());
+                    findStock.setString(1, build.getCpu());
+                    findStock.setString(2, build.getGpu());
+                    findStock.setString(3, build.getRam());
+            java.sql.ResultSet stockCount = findStock.executeQuery();
+                stockCount.beforeFirst();
+            if (stockCount.next()) {
+                setCpuStock(stockCount.getInt("QAUNTITY")); // sets the current quantity
+                }
+
+            if (stockCount.next()) {
+                setGpuStock(stockCount.getInt("QAUNTITY")); // sets the current quantity
+                }
+
+            if (stockCount.next()) {
+                setRamStock(stockCount.getInt("QAUNTITY")); // sets the current quantity
+                }
+            System.out.println(String.valueOf("grafdsafs"+getCpuStock()));
+            System.out.println(String.valueOf(getGpuStock()));
+            System.out.println(String.valueOf(getRamStock()));
+            
+            
+            
+            // decreasing stock 
+
+            
+            if(getGpuStock()>0 && getCpuStock()>0 && getRamStock()>0){
+            
+            System.out.println("WORKING");
+            // cpu
+            PreparedStatement updateCpuStock = connection.prepareStatement("UPDATE PRODUCT SET QAUNTITY = QAUNTITY - 1 WHERE PRODUCTNAME LIKE ?");//used ai for this 
+            updateCpuStock.setString(1, "%" + build.getCpu().trim() + "%");//used ai for this 
+            updateCpuStock.executeUpdate(); 
+            
+            //gpu
+            
+            PreparedStatement updateGpuStock = connection.prepareStatement("UPDATE PRODUCT SET QAUNTITY = QAUNTITY - 1 WHERE PRODUCTNAME = ?");
+            updateGpuStock.setString(1, build.getGpu());
+            updateGpuStock.executeUpdate();
+            
+            
+            //ram
+            
+            PreparedStatement updateRamStock = connection.prepareStatement("UPDATE PRODUCT SET QAUNTITY = QAUNTITY - 1 WHERE PRODUCTNAME = ?");
+            updateRamStock.setString(1, build.getRam());
+            updateRamStock.executeUpdate();  
+            
+            recordTransaction(build);
+            }
+            else{
+            System.out.println("ERRROR MISSING STOCK");
+            
+            
+            }
+            
+
+            
+            
+            
+            
+            return "worked";
+
+        } finally {
+            connection.close(); // return connection to pool
+        }      
+    }
+        public String recordTransaction(SavedBuild build) throws SQLException {
+            var userID = 0;
+            var orderID =0;
+            var cpuProductId =0;
+            var gpuProductId =0;
+            var ramProductId =0;
+        if (dataSource == null) {
+            throw new SQLException("no datasource"); // check datasource exists
+        }
+
+        Connection connection = dataSource.getConnection();
+
+        try {
+            
+            
+            //gets an order id to use later 
+            PreparedStatement generateTransactionID = connection.prepareStatement(
+                    "SELECT ORDERID FROM TRANSACTIONS ORDER BY ORDERID DESC FETCH FIRST 1 ROWS ONLY");
+
+            java.sql.ResultSet newID = generateTransactionID.executeQuery();
+            if (newID.next()) {
+                orderID = newID.getInt("ORDERID"); // gets current highest id
+                orderID = orderID +1;
+            }
+            
+            
+            //finds the userid by its associated email
+            PreparedStatement findEmail = connection.prepareStatement(
+                     "SELECT USERID FROM USERS WHERE EMAIL = ?");
+                    findEmail.setString(1, build.getEmail());
+                    System.out.println(build.getEmail());
+            java.sql.ResultSet foundEmail = findEmail.executeQuery();
+            if (foundEmail.next()){
+                  userID = foundEmail.getInt("USERID");
+                 System.out.println(build.getEmail()+userID);
+            }
+            
+            
+            
+            //this block of text will be repeated for each object bought
+            PreparedStatement findCpuID = connection.prepareStatement(
+                     "SELECT PRODUCTID FROM PRODUCT WHERE PRODUCTNAME LIKE ?");
+                    findCpuID.setString(1, "%" + build.getCpu().trim() + "%");
+                    System.out.println(build.getCpu());
+            java.sql.ResultSet cpuID = findCpuID.executeQuery();
+           
+            
+            if (cpuID.next()){
+                 cpuProductId = cpuID.getInt("PRODUCTID");
+                 System.out.println(build.getCpu()+cpuProductId);
+            }           
+            PreparedStatement recordCPU = connection.prepareStatement(
+                     "INSERT INTO TRANSACTIONS (ORDERID,FK_PRODUCTID,FK_USERID,PURCHASEDQAUNTITY) values (?,?,?,1)");
+                    
+                    recordCPU.setString(1, String.valueOf(orderID));
+                    recordCPU.setString(2, String.valueOf(cpuProductId));
+                    recordCPU.setString(3, String.valueOf(userID));
+                    recordCPU.executeUpdate();
+                    orderID = orderID +1;
+                             
+                    
+            PreparedStatement findGpuID = connection.prepareStatement(
+                     "SELECT PRODUCTID FROM PRODUCT WHERE PRODUCTNAME LIKE ?");
+                    findGpuID.setString(1, "%" + build.getGpu().trim() + "%");
+                    System.out.println(build.getGpu());
+            java.sql.ResultSet gpuID = findGpuID.executeQuery();
+           
+            
+            if (gpuID.next()){
+                 gpuProductId = gpuID.getInt("PRODUCTID");
+                 System.out.println(build.getGpu()+gpuProductId);
+            }           
+            PreparedStatement recordGPU = connection.prepareStatement(
+                     "INSERT INTO TRANSACTIONS (ORDERID,FK_PRODUCTID,FK_USERID,PURCHASEDQAUNTITY) values (?,?,?,1)");
+                    
+                    recordGPU.setString(1, String.valueOf(orderID));
+                    recordGPU.setString(2, String.valueOf(gpuProductId));
+                    recordGPU.setString(3, String.valueOf(userID));
+                    recordGPU.executeUpdate();
+                    orderID = orderID +1;
+                    
+                    
+            PreparedStatement findRamID = connection.prepareStatement(
+                     "SELECT PRODUCTID FROM PRODUCT WHERE PRODUCTNAME LIKE ?");
+                    findRamID.setString(1, "%" + build.getRam().trim() + "%");
+                    System.out.println(build.getRam());
+            java.sql.ResultSet ramID = findRamID.executeQuery();
+           
+            
+            if (ramID.next()){
+                 ramProductId = ramID.getInt("PRODUCTID");
+                 System.out.println(build.getRam()+ramProductId);
+            }           
+            PreparedStatement recordRam = connection.prepareStatement(
+                     "INSERT INTO TRANSACTIONS (ORDERID,FK_PRODUCTID,FK_USERID,PURCHASEDQAUNTITY) values (?,?,?,1)");
+                    
+                    recordRam.setString(1, String.valueOf(orderID));
+                    recordRam.setString(2, String.valueOf(ramProductId));
+                    recordRam.setString(3, String.valueOf(userID));
+                    recordRam.executeUpdate();
+                    
+
+            
+            
+          
+            
+
+            
+            
+            
+            
+            return "worked";
+
+        } finally {
+            connection.close(); // return connection to pool
+        }      
+    }
+
+    
+    
     public String getCpu() {
         return cpu;
     }
@@ -262,7 +471,18 @@ public class BuildBean implements Serializable {
     public void setCpu(String cpu) {
         this.cpu = cpu; // sets selected cpu from build form
     }
+    
+    
+        public int getCpuStock() {
+        return cpuStock; 
+    }
 
+    public void setCpuStock(int cpuStock) {
+        this.cpuStock = cpuStock; 
+    }
+
+    
+    
     public String getGpu() {
         return gpu;
     }
@@ -270,7 +490,14 @@ public class BuildBean implements Serializable {
     public void setGpu(String gpu) {
         this.gpu = gpu; // sets selected gpu from build form
     }
+    
+        public int getGpuStock() {
+        return gpuStock; 
+    }
 
+    public void setGpuStock(int gpuStock) {
+        this.gpuStock = gpuStock; 
+    }
     public String getRam() {
         return ram;
     }
@@ -278,7 +505,13 @@ public class BuildBean implements Serializable {
     public void setRam(String ram) {
         this.ram = ram; // sets selected ram from build form
     }
+        public int getRamStock() {
+        return ramStock; 
+    }
 
+    public void setRamStock(int ramStock) {
+        this.ramStock = ramStock; 
+    }
     // inner class used to hold one saved build
     public static class SavedBuild implements Serializable {
 

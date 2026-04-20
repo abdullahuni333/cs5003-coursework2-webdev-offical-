@@ -81,8 +81,9 @@
                                          rendered="#{build.editing}" /> <!-- cancels edit -->
                         
                         <h:commandButton value="Purchase"
-                                         action="#{buildBean.purchaseBuild}" />
-                    </h:column>
+                                         action="#{buildBean.findStock(build)}" />
+                                         
+                    </h:column> 
 
                 </h:dataTable>
 
