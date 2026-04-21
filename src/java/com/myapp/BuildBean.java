@@ -363,8 +363,8 @@ public class BuildBean implements Serializable {
 
             //this block of text will be repeated for each object bought
             PreparedStatement findCpuID = connection.prepareStatement(
-                    "SELECT PRODUCTID FROM PRODUCT WHERE PRODUCTNAME LIKE ?");
-            findCpuID.setString(1, "%" + build.getCpu().trim() + "%");
+                    "SELECT PRODUCTID FROM PRODUCT WHERE PRODUCTNAME LIKE ?");//used ai for this 
+            findCpuID.setString(1, "%" + build.getCpu().trim() + "%");//used ai for this 
             System.out.println(build.getCpu());
             java.sql.ResultSet cpuID = findCpuID.executeQuery();
 

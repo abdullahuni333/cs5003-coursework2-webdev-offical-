@@ -136,6 +136,11 @@ public class LoginBean implements Serializable {
                     "DELETE FROM APP.ADDRESSES WHERE FKUSERID = ?");
             deleteAddress.setInt(1, userId);
             deleteAddress.executeUpdate();
+            
+            PreparedStatement deleteTransactions = connection.prepareStatement(
+                    "DELETE FROM APP.TRANSACTIONS WHERE FK_USERID = ?");
+            deleteTransactions.setInt(1, userId);
+            deleteTransactions.executeUpdate();
 
             PreparedStatement deleteUser = connection.prepareStatement(
                     "DELETE FROM APP.USERS WHERE USERID = ?");
