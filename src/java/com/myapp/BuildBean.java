@@ -382,8 +382,8 @@ public class BuildBean implements Serializable {
             orderID = orderID + 1;
 
             PreparedStatement findGpuID = connection.prepareStatement(
-                    "SELECT PRODUCTID FROM PRODUCT WHERE PRODUCTNAME LIKE ?");
-            findGpuID.setString(1, "%" + build.getGpu().trim() + "%");
+                    "SELECT PRODUCTID FROM PRODUCT WHERE PRODUCTNAME LIKE ?");//used ai for this 
+            findGpuID.setString(1, "%" + build.getGpu().trim() + "%");//used ai for this 
             System.out.println(build.getGpu());
             java.sql.ResultSet gpuID = findGpuID.executeQuery();
 
